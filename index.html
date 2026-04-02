@@ -1,58 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ajay Philosophy - Deep Questions & Answers</title>
-  <meta name="description" content="Ajay Philosophy: Deep questions about God, truth, life with powerful answers.">
-</head>
+  <title>Ajay Philosophy</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body { font-family: Arial; padding: 20px; }
-    input { width: 100%; padding: 10px; margin-bottom: 20px; }
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #0f172a;
+      color: white;
+    }
+
+    header {
+      background: #1e293b;
+      padding: 15px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 90%;
+      margin: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    .card {
+      background: #1e293b;
+      margin: 15px;
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    video {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+
+    .category {
+      margin: 10px;
+      padding: 8px;
+      background: #334155;
+      display: inline-block;
+      border-radius: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
 
-<h1>Ask Philosophy</h1>
+<header>Ajay Philosophy</header>
 
-<input type="text" id="search" placeholder="Ask something..." onkeyup="searchQ()">
+<input type="text" id="search" placeholder="Ask anything..." onkeyup="searchQ()">
+
+<div>
+  <span class="category" onclick="filterCat('all')">All</span>
+  <span class="category" onclick="filterCat('god')">God</span>
+  <span class="category" onclick="filterCat('truth')">Truth</span>
+  <span class="category" onclick="filterCat('life')">Life</span>
+</div>
 
 <div id="results"></div>
 
 <script>
 const data = [
   {
-    q: "Does God exist?",
-    a: "God is a concept created by human fear and desire..."
-  },
-  {
-    q: "What is truth?",
-    a: "Truth is beyond belief. It is direct experience..."
-  },
-  {
+    cat: "god",
     q: "भगवान क्या है?",
-    a: "भगवान मन की कल्पना है जो डर और इच्छा से पैदा होती है..."
+    a: "भगवान एक मानसिक concept है जो डर और उम्मीद से बना है।",
+    img: "https://source.unsplash.com/400x200/?god,sky",
+    video: ""
   },
   {
+    cat: "truth",
     q: "सच क्या है?",
-    a: "सच belief नहीं, सीधा अनुभव है..."
+    a: "सच belief नहीं, direct experience है।",
+    img: "https://source.unsplash.com/400x200/?truth,light",
+    video: ""
   },
   {
-    q: "दुख क्यों होता है?",
-    a: "दुख attachment और expectation से पैदा होता है..."
+    cat: "life",
+    q: "What is the meaning of life?",
+    a: "Life has no fixed meaning. You create meaning through awareness.",
+    img: "https://source.unsplash.com/400x200/?life,nature",
+    video: ""
   }
 ];
-function searchQ() {
-  let input = document.getElementById("search").value.toLowerCase();
+
+let currentCat = "all";
+
+function display(items) {
   let output = "";
-
-  data.forEach(item => {
-    let q = item.q.toLowerCase();
-    let a = item.a.toLowerCase();
-
-    if (q.includes(input) || a.includes(input)) {
-      output += `<h3>${item.q}</h3><p>${item.a}</p>`;
-    }
+  items.forEach(item => {
+    output += `
+      <div class="card">
+        <h3>${item.q}</h3>
+        <p>${item.a}</p>
+        <img src="${item.img}">
+        ${item.video ? `<video controls src="${item.video}"></video>` : ""}
+      </div>
+    `;
   });
-
   document.getElementById("results").innerHTML = output;
 }
+
+function searchQ() {
+  let input = document.getElementById("search").value.toLowerCase();
+
+  let filtered = data.filter(item => {
+    return (
+      (item.q.toLowerCase().includes(input) ||
+       item.a.toLowerCase().includes(input)) &&
+      (currentCat === "all" || item.cat === currentCat)
+    );
+  });
+
+  display(filtered);
+}
+
+function filterCat(cat) {
+  currentCat = cat;
+  display(data.filter(item => cat === "all" || item.cat === cat));
+}
+
+display(data);
+</script>
+
+</body>
+</html>
