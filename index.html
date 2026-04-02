@@ -140,3 +140,48 @@ display(data);
 
 </body>
 </html>
+function searchQ() {
+  let input = document.getElementById("search").value.toLowerCase();
+
+  let filtered = data.filter(item =>
+    item.q.toLowerCase().includes(input) ||
+    item.a.toLowerCase().includes(input)
+  );
+
+  display(filtered);
+}function display(items) {
+  let output = "";
+
+  items.forEach(item => {
+    output += `
+      <div class="card">
+        <h2>${item.q}</h2>
+        <p>${item.a}</p>
+        
+        ${item.img ? `<img src="${item.img}">` : ""}
+        
+        ${item.video ? `<video controls src="${item.video}"></video>` : ""}
+      </div>
+    `;
+  });
+
+  document.getElementById("results").innerHTML = output;
+}
+function display(items) {
+  let output = "";
+
+  items.forEach(item => {
+    output += `
+      <div class="card">
+        <h2>${item.q}</h2>
+        <p>${item.a}</p>
+        
+        ${item.img ? `<img src="${item.img}">` : ""}
+        
+        ${item.video ? `<video controls src="${item.video}"></video>` : ""}
+      </div>
+    `;
+  });
+
+  document.getElementById("results").innerHTML = output;
+}
