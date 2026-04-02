@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajay Philosophy</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input { width: 100%; padding: 10px; margin-bottom: 20px; }
+  </style>
+</head>
+
+<body>
+
+<h1>Ask Philosophy</h1>
+
+<input type="text" id="search" placeholder="Ask something..." onkeyup="searchQ()">
+
+<div id="results"></div>
+
+<script>
+const data = [
+  {
+    q: "Does God exist?",
+    a: "God is a concept created by human fear and desire..."
+  },
+  {
+    q: "What is truth?",
+    a: "Truth is beyond belief. It is direct experience..."
+  }
+];
+
+function searchQ() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let output = "";
+
+  data.forEach(item => {
+    if (item.q.toLowerCase().includes(input)) {
+      output += `<h3>${item.q}</h3><p>${item.a}</p>`;
+    }
+  });
+
+  document.getElementById("results").innerHTML = output;
+}
+</script>
+
+</body>
+</html>
