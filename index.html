@@ -25,22 +25,32 @@ const data = [
   {
     q: "What is truth?",
     a: "Truth is beyond belief. It is direct experience..."
+  },
+  {
+    q: "भगवान क्या है?",
+    a: "भगवान मन की कल्पना है जो डर और इच्छा से पैदा होती है..."
+  },
+  {
+    q: "सच क्या है?",
+    a: "सच belief नहीं, सीधा अनुभव है..."
+  },
+  {
+    q: "दुख क्यों होता है?",
+    a: "दुख attachment और expectation से पैदा होता है..."
   }
 ];
-
 function searchQ() {
   let input = document.getElementById("search").value.toLowerCase();
   let output = "";
 
   data.forEach(item => {
-    if (item.q.toLowerCase().includes(input)) {
+    let q = item.q.toLowerCase();
+    let a = item.a.toLowerCase();
+
+    if (q.includes(input) || a.includes(input)) {
       output += `<h3>${item.q}</h3><p>${item.a}</p>`;
     }
   });
 
   document.getElementById("results").innerHTML = output;
 }
-</script>
-
-</body>
-</html>
